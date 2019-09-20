@@ -13,7 +13,11 @@ UGridLayoutGroup::UGridLayoutGroup()
 void UGridLayoutGroup::SynchronizeProperties()
 {
 	Super::SynchronizeProperties();
-	for (USizeBox* element : GetAllCells())
+	if (OnValueChanged.IsBound())
+	{
+		OnValueChanged.Broadcast();
+	}
+	for (auto element : GetAllCells())
 	{
 		SetCellSize(element);
 		//UE_LOG(LogTemp, Log, TEXT("%s"), *GetNameSafe(element));
@@ -22,7 +26,7 @@ void UGridLayoutGroup::SynchronizeProperties()
 
 TArray<USizeBox*> UGridLayoutGroup::GetAllCells()
 {
-	TArray<USizeBox*> Cells = TArray<USizeBox*>();
+	auto Cells = TArray<USizeBox*>();
 	for (int i = 0; i < GetChildrenCount(); i++)
 	{
 		Cells.Add(dynamic_cast<USizeBox*>(GetChildAt(i)));

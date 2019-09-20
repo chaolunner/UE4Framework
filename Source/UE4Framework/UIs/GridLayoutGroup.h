@@ -6,6 +6,8 @@
 #include "Components/GridPanel.h"
 #include "GridLayoutGroup.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnValueChangedEvent);
+
 /**
  *
  */
@@ -19,6 +21,9 @@ public:
 	UGridLayoutGroup();
 
 	virtual void SynchronizeProperties() override;
+
+	UPROPERTY(BlueprintAssignable, Category = "Event")
+	FOnValueChangedEvent OnValueChanged;
 
 	UPROPERTY(EditAnywhere, Category = "Layout")
 	FVector2D CellSize;
