@@ -17,7 +17,6 @@ class UE4FRAMEWORK_API UGridLayoutGroup : public UGridPanel
 	GENERATED_BODY()
 
 public:
-
 	UGridLayoutGroup();
 
 	virtual void SynchronizeProperties() override;

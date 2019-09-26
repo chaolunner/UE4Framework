@@ -15,7 +15,6 @@ class UE4FRAMEWORK_API UMathFunctionLibrary : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 
 public:
-
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Math|Float")
 	static float MinValue();
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Math|Float")
