@@ -19,12 +19,14 @@ public:
 
 	UFUNCTION()
 	static UGameInstanceAssembler* GetInstance();
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "EventSystem")
-	class UEventSystem* GetEventSystem();
-
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    bool GetInstanceFromClass(class UClass* Class, class UObject* &Object);
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "EventSystem")
+    class UEventSystem* GetEventSystem();
+    
 private:
 	// UE4 Garbage Collection only counts references to UObjects that are UPROPERTY().
 	// Objects belonging to this class will never be saved to disk.
-	UPROPERTY(Transient)
-	class UEventSystem* EventSystemInstance;
+    UPROPERTY(Transient)
+    TMap<class UClass*, class UObject*> Instances;
 };

@@ -23,11 +23,32 @@ UGameInstanceAssembler* UGameInstanceAssembler::GetInstance()
 	return instance;
 }
 
+bool UGameInstanceAssembler::GetInstanceFromClass(UClass* Class, UObject* &Object)
+{
+    if (Instances.Contains(Class))
+    {
+        Object = Instances[Class];
+        return true;
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Created!!!!"));
+        Object = NewObject<UObject>(this, Class);
+        if (Object && Object->IsValidLowLevel())
+        {
+            Instances.Add(Class, Object);
+            return true;
+        }
+    }
+    return false;
+}
+
 UEventSystem* UGameInstanceAssembler::GetEventSystem()
 {
-	if (!EventSystemInstance || !EventSystemInstance->IsValidLowLevel())
-	{
-		EventSystemInstance = NewObject<UEventSystem>(this, FName("EventSystem"));
-	}
-	return EventSystemInstance;
+    UObject* Object = NULL;
+    if (GetInstanceFromClass(UEventSystem::StaticClass(), Object))
+    {
+        return Cast<UEventSystem>(Object);
+    }
+    return NULL;
 }
